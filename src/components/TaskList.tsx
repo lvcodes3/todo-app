@@ -1,6 +1,7 @@
 import { Dispatch, SetStateAction } from "react";
 import { LinkedList } from "../linked-list/LinkedList";
 import styled from "styled-components";
+import TaskListButtons from "./TaskListButtons";
 
 interface Props {
   sll: LinkedList;
@@ -23,12 +24,15 @@ const TaskList: React.FC<Props> = ({ sll, tasks, setTasks }) => {
         <p>No tasks yet</p>
       ) : (
         <div>
-          {tasks.map((task, index) => (
-            <div key={index}>
-              <p>{task}</p>
-              <button onClick={() => handleDone(index)}>Done</button>
-            </div>
-          ))}
+          <TaskListButtons sll={sll} setTasks={setTasks} />
+          <div className="tasks-div">
+            {tasks.map((task, index) => (
+              <div key={index}>
+                <p>{task}</p>
+                <button onClick={() => handleDone(index)}>Done</button>
+              </div>
+            ))}
+          </div>
         </div>
       )}
     </Container>
@@ -46,24 +50,28 @@ const Container = styled.div`
   }
 
   div {
-    border: 1px solid black;
+    /*border: 1px solid black;*/
 
-    div {
-      display: flex;
-      justify-content: space-between;
+    .tasks-div {
       border: 1px solid black;
 
-      p {
-        padding-left: 10px;
-      }
+      div {
+        display: flex;
+        justify-content: space-between;
+        border: 1px solid black;
 
-      button {
-        width: 10%;
-        border: none;
-        color: white;
-        background-color: green;
-        font-weight: 600;
-        cursor: pointer;
+        p {
+          padding-left: 10px;
+        }
+
+        button {
+          width: 10%;
+          border: none;
+          color: white;
+          background-color: green;
+          font-weight: 600;
+          cursor: pointer;
+        }
       }
     }
   }

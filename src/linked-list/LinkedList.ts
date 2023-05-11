@@ -73,9 +73,30 @@ export class LinkedList {
     }
   }
 
-  reverse() {
-    console.log("Reversing Linked List...\n");
+  updateNode(index: number, data: string) {
+    // handler if sll is null
+    if (this.head === null) {
+      return;
+    }
 
+    // handler for updating the head node
+    let currentNode: LinkNode | null = this.head;
+
+    for (let i = 0; i < index; i++) {
+      // handler if index out of range
+      if (currentNode === null) {
+        return;
+      }
+      // updating curr
+      currentNode = currentNode.next;
+    }
+
+    if (currentNode !== null) {
+      currentNode.data = data;
+    }
+  }
+
+  reverse() {
     let currentNode: null | LinkNode = this.head;
     let prevNode: null | LinkNode = null;
 
