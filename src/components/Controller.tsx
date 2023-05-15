@@ -17,7 +17,9 @@ const Controller = () => {
     <Container>
       <h1>To Do App</h1>
       <TaskInput sll={sll} setTasks={setTasks} />
-      <TaskList sll={sll} tasks={tasks} setTasks={setTasks} />
+      {tasks.length !== 0 && (
+        <TaskList sll={sll} tasks={tasks} setTasks={setTasks} />
+      )}
     </Container>
   );
 };

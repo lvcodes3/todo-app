@@ -25,21 +25,17 @@ const TaskList = (props: TaskListProps) => {
   return (
     <Container>
       <h2>To Do List:</h2>
-      {tasks.length === 0 ? (
-        <p>No tasks yet</p>
-      ) : (
-        <div>
-          <TaskListButtons sll={sll} setTasks={setTasks} />
-          <div className="tasks-div">
-            {tasks.map((task, index) => (
-              <div key={index}>
-                <p>{task}</p>
-                <button onClick={() => handleDone(index)}>Done</button>
-              </div>
-            ))}
-          </div>
+      <div>
+        <TaskListButtons sll={sll} setTasks={setTasks} />
+        <div className="tasks-div">
+          {tasks.map((task, index) => (
+            <div key={index}>
+              <p>{task}</p>
+              <button onClick={() => handleDone(index)}>Done</button>
+            </div>
+          ))}
         </div>
-      )}
+      </div>
     </Container>
   );
 };
@@ -49,8 +45,7 @@ const Container = styled.div`
   padding-bottom: 10px;
   /*border: 1px solid black;*/
 
-  h2,
-  p {
+  h2 {
     text-align: center;
   }
 
