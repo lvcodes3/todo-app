@@ -1,14 +1,18 @@
+// dependencies
 import { useState, Dispatch, SetStateAction } from "react";
+import styled from "styled-components";
+// data structures
 import { LinkNode } from "../linked-list/LinkNode";
 import { LinkedList } from "../linked-list/LinkedList";
-import styled from "styled-components";
 
-interface Props {
+type TaskInputProps = {
   sll: LinkedList;
   setTasks: Dispatch<SetStateAction<string[]>>;
-}
+};
 
-const TaskInput: React.FC<Props> = ({ sll, setTasks }) => {
+const TaskInput = (props: TaskInputProps) => {
+  const { sll, setTasks } = props;
+
   const [task, setTask] = useState("");
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -22,7 +26,7 @@ const TaskInput: React.FC<Props> = ({ sll, setTasks }) => {
     // update tasks
     setTasks(sll.toArray());
 
-    // reset task input
+    // reset task input state
     setTask("");
   };
 

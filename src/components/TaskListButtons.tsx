@@ -1,13 +1,17 @@
+// dependencies
 import { Dispatch, SetStateAction } from "react";
-import { LinkedList } from "../linked-list/LinkedList";
 import styled from "styled-components";
+// data structures
+import { LinkedList } from "../linked-list/LinkedList";
 
-interface Props {
+type TaskListButtonsProps = {
   sll: LinkedList;
   setTasks: Dispatch<SetStateAction<string[]>>;
-}
+};
 
-const TaskListButtons: React.FC<Props> = ({ sll, setTasks }) => {
+const TaskListButtons = (props: TaskListButtonsProps) => {
+  const { sll, setTasks } = props;
+
   const handleClearList = () => {
     sll.head = null;
     setTasks(sll.toArray());
@@ -21,6 +25,7 @@ const TaskListButtons: React.FC<Props> = ({ sll, setTasks }) => {
   const handleGetListSize = () => {
     alert(sll.getSize());
   };
+
   return (
     <Container>
       <button onClick={handleClearList}>Clear List</button>

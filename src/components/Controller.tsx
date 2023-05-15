@@ -1,10 +1,13 @@
+// dependencies
 import { useState } from "react";
 import styled from "styled-components";
+// data structures
 import { LinkedList } from "../linked-list/LinkedList";
+// sub-components
 import TaskInput from "./TaskInput";
 import TaskList from "./TaskList";
 
-// create and initialize the singly linked list to null
+// create and initialize the singly linked list
 const sll = new LinkedList();
 
 const Controller = () => {

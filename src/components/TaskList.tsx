@@ -1,15 +1,20 @@
+// dependencies
 import { Dispatch, SetStateAction } from "react";
-import { LinkedList } from "../linked-list/LinkedList";
 import styled from "styled-components";
+// data structures
+import { LinkedList } from "../linked-list/LinkedList";
+// sub-components
 import TaskListButtons from "./TaskListButtons";
 
-interface Props {
+type TaskListProps = {
   sll: LinkedList;
   tasks: string[];
   setTasks: Dispatch<SetStateAction<string[]>>;
-}
+};
 
-const TaskList: React.FC<Props> = ({ sll, tasks, setTasks }) => {
+const TaskList = (props: TaskListProps) => {
+  const { sll, tasks, setTasks } = props;
+
   const handleDone = (index: number) => {
     // perform removal
     sll.removeNode(index);
