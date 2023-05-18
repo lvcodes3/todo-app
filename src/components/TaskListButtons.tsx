@@ -44,7 +44,8 @@ const Container = styled.div`
   button {
     width: 15%;
     height: 30px;
-    background-color: gold;
+    color: white;
+    background-color: #337ab7;
     font-weight: 600;
     cursor: pointer;
     border: 2px solid black;

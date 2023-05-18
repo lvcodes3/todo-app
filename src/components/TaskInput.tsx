@@ -75,9 +75,12 @@ const Container = styled.div`
         width: 15%;
         font-weight: 600;
         color: white;
-        background-color: blue;
+        background-color: #00cc00;
         cursor: pointer;
-        border: none;
+        border: 2x solid black;
+        border-right: none;
+        border-top: none;
+        border-bottom: none;
       }
     }
   }
