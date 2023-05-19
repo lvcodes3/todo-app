@@ -1,22 +1,28 @@
 # To Do App
 
-Made with React - TypeScript and styled-components for CSS styling.
+Made with React - TypeScript.
 
-We also utilize the singly linked list data structure which holds all the tasks (as nodes)
-in the to do list.
+Additional npm dependencies utilized: styled-components and react-modal.
+
+Also utilizes the LinkNode and LinkedList data structure; The LinkNode holds a task as data
+and holds a pointer to the next task or null; The LinkedList is a collection of the defined
+LinkNodes and contains the methods: toArray(), getSize(), insertNode(), removeNode(),
+updateNode(), and reverse().
 
 ## Features:
 
 1. Insert a Task
 
-2. Mark a Task as done (removes it from the list)
+2. Update a Task
 
-3. Clear List (removes all tasks from the list)
+3. Complete a Task
 
-4. Reverse List
+4. Clear Task List
 
-5. Get the List Size
+5. Reverse Task List
 
-All the features utilize the singly linked list, which is instantiated in the Controller
-component, which then holds the components it controls: TaskInput, TaskList, and
-Task List Buttons inside of the TaskList.
+6. Get Task List Size
+
+All of the features utilize the functionalities of the LinkNode and LinkedList data structures.
+The LinkedList is instantiated in the Controller component, which then passes it down by reference
+to the sub-components that utilize it as well: TaskInput, TaskList, and TaskListButtons.
