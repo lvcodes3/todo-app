@@ -100,14 +100,12 @@ const TaskList = (props: TaskListProps) => {
         <ModalContent>
           <h2>Update Task:</h2>
           <form onSubmit={handleUpdate}>
-            <div>
-              <input
-                type="text"
-                value={updatedTask}
-                onChange={(e) => setUpdatedTask(e.target.value)}
-              />
-              <button type="submit">Update</button>
-            </div>
+            <input
+              type="text"
+              value={updatedTask}
+              onChange={(e) => setUpdatedTask(e.target.value)}
+            />
+            <button type="submit">Update</button>
           </form>
           <div className="exit-btn-div">
             <button onClick={closeModal}>Exit</button>
@@ -175,6 +173,14 @@ const Container = styled.div`
       }
     }
   }
+
+  @media (max-width: 1024px) {
+    width: 90%;
+
+    .task-container {
+      flex-direction: column;
+    }
+  }
 `;
 
 const CustomModal = styled(Modal)`
@@ -199,31 +205,27 @@ const ModalContent = styled.div`
   }
 
   form {
-    div {
-      display: flex;
-      justify-content: center;
-      border: 2px solid black;
+    display: flex;
+    border: 2px solid black;
 
-      input {
-        width: 85%;
-        height: 25px;
-        border: none;
-      }
-      input:focus {
-        outline: none;
-      }
+    input {
+      box-sizing: border-box;
+      width: 85%;
+      height: 25px;
+      border: none;
+    }
+    input:focus {
+      outline: none;
+    }
 
-      button {
-        width: 15%;
-        font-weight: 600;
-        color: white;
-        background-color: #00cc00;
-        cursor: pointer;
-        border: 2x solid black;
-        border-right: none;
-        border-top: none;
-        border-bottom: none;
-      }
+    button {
+      width: 15%;
+      font-weight: 600;
+      color: white;
+      background-color: #00cc00;
+      cursor: pointer;
+      border: none;
+      border-left: 2px solid black;
     }
   }
 
@@ -232,13 +234,33 @@ const ModalContent = styled.div`
     text-align: center;
 
     button {
-      width: 15%;
+      width: 75px;
       height: 25px;
       font-weight: 600;
       color: white;
       background-color: #cc0000;
       cursor: pointer;
       border: 2px solid black;
+    }
+  }
+
+  @media (max-width: 1024px) {
+    width: 60%;
+
+    form {
+      flex-direction: column;
+
+      input {
+        width: 100%;
+        border: none;
+      }
+
+      button {
+        width: 100%;
+        height: 25px;
+        border: none;
+        border-top: 2px solid black;
+      }
     }
   }
 `;
