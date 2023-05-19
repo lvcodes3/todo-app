@@ -3,14 +3,14 @@ import { useState, Dispatch, SetStateAction } from "react";
 import Modal from "react-modal";
 import styled from "styled-components";
 // data structures
-import { LinkNode } from "../linked-list/LinkNode";
 import { LinkedList } from "../linked-list/LinkedList";
 // sub-components
 import TaskListButtons from "./TaskListButtons";
 
-// Set the app root element (or any valid selector)
+// set the app root element for the React Modal
 Modal.setAppElement("#root");
 
+// define the props being passed in
 type TaskListProps = {
   sll: LinkedList;
   tasks: string[];
@@ -18,23 +18,27 @@ type TaskListProps = {
 };
 
 const TaskList = (props: TaskListProps) => {
-  // props
+  // props passed in
   const { sll, tasks, setTasks } = props;
+
   // states
   const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
   const [index, setIndex] = useState<number>(-1);
   const [updatedTask, setUpdatedTask] = useState<string>("");
 
   const handleDone = (index: number) => {
-    // perform removal
+    // perform removal on sll
     sll.removeNode(index);
     // update tasks
     setTasks(sll.toArray());
   };
 
-  // React Modal Functionalities
-  const openModal = (index: number) => {
+  const openModal = (index: number, task: string) => {
+    // set index of the current task that was clicked on
     setIndex(index);
+    // set the updated task value to the current task that was clicked on
+    setUpdatedTask(task);
+    // open the React Modal to display the update form
     setModalIsOpen(true);
   };
 
@@ -46,7 +50,7 @@ const TaskList = (props: TaskListProps) => {
     // prevent screen refresh
     e.preventDefault();
 
-    // perform update on sll
+    // perform data update on sll
     if (index !== -1) {
       sll.updateNode(index, updatedTask);
     }
@@ -64,7 +68,9 @@ const TaskList = (props: TaskListProps) => {
   return (
     <Container>
       <h2>To Do List:</h2>
+
       <TaskListButtons sll={sll} setTasks={setTasks} />
+
       <div className="tasks-container">
         {tasks.map((task, index) => (
           <div className="task-container" key={index}>
@@ -72,7 +78,10 @@ const TaskList = (props: TaskListProps) => {
               <p>{task}</p>
             </div>
             <div className="button-section">
-              <button className="update-btn" onClick={() => openModal(index)}>
+              <button
+                className="update-btn"
+                onClick={() => openModal(index, task)}
+              >
                 Update
               </button>
               <button className="done-btn" onClick={() => handleDone(index)}>
@@ -82,30 +91,36 @@ const TaskList = (props: TaskListProps) => {
           </div>
         ))}
       </div>
-      <Modal
+
+      <CustomModal
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
         contentLabel="Modal"
-        style={customStyles}
       >
-        <h2>Update Task:</h2>
-        <form onSubmit={handleUpdate}>
-          <div>
-            <input
-              type="text"
-              value={updatedTask}
-              onChange={(e) => setUpdatedTask(e.target.value)}
-            />
-            <button type="submit">Update</button>
+        <ModalContent>
+          <h2>Update Task:</h2>
+          <form onSubmit={handleUpdate}>
+            <div>
+              <input
+                type="text"
+                value={updatedTask}
+                onChange={(e) => setUpdatedTask(e.target.value)}
+              />
+              <button type="submit">Update</button>
+            </div>
+          </form>
+          <div className="exit-btn-div">
+            <button onClick={closeModal}>Exit</button>
           </div>
-        </form>
-        <br />
-        <button onClick={closeModal}>Exit</button>
-      </Modal>
+        </ModalContent>
+      </CustomModal>
     </Container>
   );
 };
 
+///////////////////////////////////
+// styled-components CSS styling //
+///////////////////////////////////
 const Container = styled.div`
   width: 60%;
   padding-bottom: 10px;
@@ -162,15 +177,70 @@ const Container = styled.div`
   }
 `;
 
-const customStyles = {
-  content: {
-    top: "50%",
-    left: "50%",
-    right: "auto",
-    bottom: "auto",
-    marginRight: "-50%",
-    transform: "translate(-50%, -50%)",
-  },
-};
+const CustomModal = styled(Modal)`
+  overlay {
+    /* styles for the overlay */
+    background-color: rgba(0, 0, 0, 0.5);
+    /* ... add more overlay styles as needed */
+  }
+`;
+const ModalContent = styled.div`
+  width: 40%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 20px;
+  border: 1px solid black;
+
+  h2 {
+    text-align: center;
+  }
+
+  form {
+    div {
+      display: flex;
+      justify-content: center;
+      border: 2px solid black;
+
+      input {
+        width: 85%;
+        height: 25px;
+        border: none;
+      }
+      input:focus {
+        outline: none;
+      }
+
+      button {
+        width: 15%;
+        font-weight: 600;
+        color: white;
+        background-color: #00cc00;
+        cursor: pointer;
+        border: 2x solid black;
+        border-right: none;
+        border-top: none;
+        border-bottom: none;
+      }
+    }
+  }
+
+  .exit-btn-div {
+    padding-top: 10px;
+    text-align: center;
+
+    button {
+      width: 15%;
+      height: 25px;
+      font-weight: 600;
+      color: white;
+      background-color: #cc0000;
+      cursor: pointer;
+      border: 2px solid black;
+    }
+  }
+`;
 
 export default TaskList;
