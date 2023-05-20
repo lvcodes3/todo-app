@@ -71,26 +71,26 @@ const TaskList = (props: TaskListProps) => {
 
       <TaskListButtons sll={sll} setTasks={setTasks} />
 
-      <div className="tasks-container">
-        {tasks.map((task, index) => (
-          <div className="task-container" key={index}>
-            <div className="task-section">
-              <p>{task}</p>
-            </div>
-            <div className="button-section">
-              <button
-                className="update-btn"
-                onClick={() => openModal(index, task)}
-              >
-                Update
-              </button>
-              <button className="done-btn" onClick={() => handleDone(index)}>
-                Done
-              </button>
-            </div>
+      {tasks.map((task, index) => (
+        <div className="task-container" key={index}>
+          <div className="task-section">
+            <p>{task}</p>
           </div>
-        ))}
-      </div>
+          <div className="update-section">
+            <button
+              className="update-btn"
+              onClick={() => openModal(index, task)}
+            >
+              Update
+            </button>
+          </div>
+          <div className="done-section">
+            <button className="done-btn" onClick={() => handleDone(index)}>
+              Done
+            </button>
+          </div>
+        </div>
+      ))}
 
       <CustomModal
         isOpen={modalIsOpen}
@@ -128,48 +128,51 @@ const Container = styled.div`
     text-align: center;
   }
 
-  .tasks-container {
-    border: 1px solid black;
+  .task-container {
+    display: flex;
+    border: 2px solid black;
+    margin-bottom: 5px;
 
-    .task-container {
-      display: flex;
-      border: 1px solid black;
+    .task-section {
+      flex: 4;
+      border: none;
+      border-right: 1px solid black;
 
-      .task-section {
-        width: 75%;
-        p {
-          padding-left: 10px;
-        }
+      p {
+        padding-left: 10px;
       }
+    }
 
-      .button-section {
-        width: 25%;
-        display: flex;
-        justify-content: space-between;
+    .update-section {
+      flex: 1;
+      border: none;
+      border-left: 2px solid black;
+      border-right: 1px solid black;
 
-        .update-btn {
-          width: 50%;
-          border-left: 2px solid black;
-          border-right: 1px solid black;
-          border-top: none;
-          border-bottom: none;
-          color: white;
-          background-color: #ff9933;
-          font-weight: 600;
-          cursor: pointer;
-        }
+      .update-btn {
+        width: 100%;
+        height: 100%;
+        border: none;
+        color: white;
+        background-color: #ff9933;
+        font-weight: 600;
+        cursor: pointer;
+      }
+    }
 
-        .done-btn {
-          width: 50%;
-          border-left: 1px solid black;
-          border-top: none;
-          border-bottom: none;
-          border-right: none;
-          color: white;
-          background-color: #00cc00;
-          font-weight: 600;
-          cursor: pointer;
-        }
+    .done-section {
+      flex: 1;
+      border: none;
+      border-left: 1px solid black;
+
+      .done-btn {
+        width: 100%;
+        height: 100%;
+        border: none;
+        color: white;
+        background-color: #00cc00;
+        font-weight: 600;
+        cursor: pointer;
       }
     }
   }
@@ -179,6 +182,34 @@ const Container = styled.div`
 
     .task-container {
       flex-direction: column;
+
+      .task-section {
+        border: none;
+        border-bottom: 1px solid black;
+      }
+
+      .update-section {
+        border: none;
+        border-top: 1px solid black;
+        border-bottom: 1px solid black;
+        display: flex;
+        align-items: stretch;
+
+        .update-btn {
+          height: 25px;
+        }
+      }
+
+      .done-section {
+        border: none;
+        border-top: 1px solid black;
+        display: flex;
+        align-items: stretch;
+
+        .done-btn {
+          height: 25px;
+        }
+      }
     }
   }
 `;
